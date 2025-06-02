@@ -1,1 +1,12 @@
-# placeholder for Cloud Build pipeline
+steps:
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '-t', 'harbor.example.com/ibm-mq:latest', '.']
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'harbor.example.com/ibm-mq:latest']
+ - name: 'gcr.io/cloud-builders/kubectl'
+   args: ['apply', '-f', 'argocd/applications/iib-mq.yaml']
+   env:
+     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+     - 'CLOUDSDK_CONTAINER_CLUSTER=your-cluster'
+images:
+ - harbor.example.com/ibm-mq:latest# placeholder for Cloud Build pipeline
