@@ -1,25 +1,50 @@
 apiVersion: skaffold/v2beta26
 kind: Config
 metadata:
- name: iib-mq-pipeline
+ name: iib-mq-ace-deploy
 build:
  artifacts:
    - image: harbor.example.com/ibm-mq
+     context: .
+   - image: harbor.example.com/ibm-ace
      context: .
 deploy:
  helm:
    releases:
      - name: iib-mq
        chartPath: ./helm-charts/iib-mq
+       namespace: iib-mq
        valuesFiles:
          - ./helm-charts/iib-mq/values.yaml
-       namespace: iib-mq
+       upgradeOnChange: true
+     - name: iib-ace
+       chartPath: ./helm-charts/iib-ace
+       namespace: iib-ace
+       valuesFiles:
+         - ./helm-charts/iib-ace/values.yaml
        upgradeOnChange: true
 profiles:
- - name: default
+ - name: mq-only
+   build:
+     artifacts:
+       - image: harbor.example.com/ibm-mq
    deploy:
      helm:
        releases:
          - name: iib-mq
            chartPath: ./helm-charts/iib-mq
            namespace: iib-mq
+           valuesFiles:
+             - ./helm-charts/iib-mq/values.yaml
+ - name: ace-only
+   build:
+     artifacts:
+       - image: harbor.example.com/ibm-ace
+   deploy:
+     helm:
+       releases:
+         - name: iib-ace
+           chartPath: ./helm-charts/iib-ace
+           namespace: iib-ace
+           valuesFiles:
+             - ./helm-charts/iib-ace/values.yaml
