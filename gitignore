@@ -1,0 +1,27 @@
+# Kubernetes / Helm
+*.tgz
+charts/
+secrets.yaml
+values*.yaml
+*.log
+# Terraform (if you add later)
+.terraform/
+terraform.tfstate*
+crash.log
+# IDE & OS junk
+.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
+*.~
+# Editor folders
+.vscode/
+.idea/
+# Python cache (if scripts are added)
+__pycache__/
+*.py[cod]
+# Node stuff (if used)
+node_modules/
+# Mac & Linux
+Thumbs.db
