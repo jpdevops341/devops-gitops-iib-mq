@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+ name: {{ .Release.Name }}
+spec:
+ serviceName: "{{ .Release.Name }}"
+ replicas: {{ .Values.replicaCount }}
+ selector:
+   matchLabels:
+     app: {{ .Release.Name }}
+ template:
+   metadata:
+     labels:
+       app: {{ .Release.Name }}
+   spec:
+     containers:
+     - name: mq
+       image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+       ports:
+       - containerPort: {{ .Values.service.port }}
+       volumeMounts:
+       - name: mq-secrets
+         mountPath: {{ .Values.volumeMountPath }}
+         readOnly: true
+     volumes:
+     - name: mq-secrets
+       csi:
+         driver: secrets-store.csi.k8s.io
+         readOnly: true
+         volumeAttributes:
+           secretProviderClass: {{ .Values.secretProviderClass }}
