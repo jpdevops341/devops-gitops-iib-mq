@@ -1,0 +1,5 @@
+apiVersion: v2
+name: iib-mq
+description: A Helm chart for deploying IBM MQ on GKE with CSI and ArgoCD
+version: 0.1.0
+appVersion: "9.3"
