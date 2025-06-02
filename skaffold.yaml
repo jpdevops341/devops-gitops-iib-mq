@@ -1,0 +1,25 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+ name: iib-mq-pipeline
+build:
+ artifacts:
+   - image: harbor.example.com/ibm-mq
+     context: .
+deploy:
+ helm:
+   releases:
+     - name: iib-mq
+       chartPath: ./helm-charts/iib-mq
+       valuesFiles:
+         - ./helm-charts/iib-mq/values.yaml
+       namespace: iib-mq
+       upgradeOnChange: true
+profiles:
+ - name: default
+   deploy:
+     helm:
+       releases:
+         - name: iib-mq
+           chartPath: ./helm-charts/iib-mq
+           namespace: iib-mq
