@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+ name: iib-integration
+ namespace: argocd
+spec:
+ description: Project for IBM MQ and ACE GitOps deployments
+ sourceRepos:
+   - https://github.com/jpdevops341/devops-gitops-iib-mq-ace.git
+ destinations:
+   - namespace: iib-mq
+     server: https://kubernetes.default.svc
+   - namespace: iib-ace
+     server: https://kubernetes.default.svc
+ clusterResourceWhitelist:
+   - group: "*"
+     kind: "*"
+ orphanedResources:
+   warn: true
