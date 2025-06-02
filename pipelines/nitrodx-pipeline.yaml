@@ -1,1 +1,9 @@
-# placeholder for Nitrodx pipeline
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: iib-mq-pipeline
+description: Pipeline for deploying IBM MQ to non-prod GKE with Argo CD sync
+serialPipeline:
+ stages:
+   - targetId: non-prod
+     profiles: [ default ]
