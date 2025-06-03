@@ -127,7 +127,7 @@ Mounting is handled via `SecretProviderClass` objects defined in the Helm templa
 
 ## 👤 Author
 
-**Jo (jpdevops341)**  
+**Jyothi P (jpdevops341)**  
 DevOps Engineer | GitOps Enthusiast | GCP + Kubernetes + Argo CD  
 
 ---
